@@ -13,7 +13,7 @@ app.use(
   }),
 );
 // Serve static files from the React app
-app.use(express.static(path.resolve("dist")));
+app.use(express.static(path.resolve("..", "dist")));
 
 app.get("/songs", (req, res) => {
   res.status(200).json({
@@ -22,7 +22,7 @@ app.get("/songs", (req, res) => {
 });
 
 app.get("/audio/:name", (req, res) => {
-  const musicPath = path.resolve("assets", req.params.name);
+  const musicPath = path.resolve("..", "assets", req.params.name);
   const stat = fs.statSync(musicPath);
 
   const range = req.headers.range;
@@ -60,7 +60,7 @@ app.get("/audio/:name", (req, res) => {
 });
 
 app.get("*", (req, res) => {
-  res.sendFile(path.resolve("dist", "index.html"));
+  res.sendFile(path.resolve("..", "dist", "index.html"));
 });
 
 app.listen(3000, "0.0.0.0", () => {
